@@ -1,0 +1,100 @@
+
+outreg2 using sum_details.xls, replace sum(log)
+
+regress growth_rate_Q12020 strigency_index_Q12020
+regress growth_rate_Q22020 strigency_index_Q22020
+regress growth_rate_Q32020 strigency_index_Q32020
+regress growth_rate_Q42020 strigency_index_Q42020
+regress growth_rate_Q12021 strigency_index_Q12021
+
+
+
+graph box strigency_index_Q12020
+histogram strigency_index_Q12020, frequency normal
+twoway scatter growth_rate_Q12020 strigency_index_Q12020
+twoway scatter growth_rate_Q22020 strigency_index_Q22020
+
+graph box tourism_2018
+tab tourism_2018
+
+
+//OLS
+reg growth_rate_Q12020 stringency_index_Q12020 fatality_Q12020 annual_trade_2018 tourism_2018 gdp_per_capita_Q12020 trend_growth expenditure_on_health_2018
+
+reg growth_rate_Q22020 stringency_index_Q22020 fatality_Q22020 annual_trade_2018 tourism_2018 gdp_per_capita_Q22020 trend_growth expenditure_on_health_2018
+
+reg growth_rate_Q32020 stringency_index_Q32020 fatality_Q32020 annual_trade_2018 tourism_2018 gdp_per_capita_Q32020 trend_growth expenditure_on_health_2018
+
+reg growth_rate_Q42020 stringency_index_Q42020 fatality_Q42020 annual_trade_2018 tourism_2018 gdp_per_capita_Q42020 trend_growth expenditure_on_health_2018
+
+
+reg growth_rate_Q12021 stringency_index_Q12021 fatality_Q12021 annual_trade_2018 tourism_2018 gdp_per_capita_Q12021 trend_growth expenditure_on_health_2018 
+
+reg growth_rate_Q22021 stringency_index_Q22021 fatality_Q22021 annual_trade_2018 tourism_2018 gdp_per_capita_Q22021 trend_growth expenditure_on_health_2018 
+
+reg growth_rate_Q32021 stringency_index_Q32021 fatality_Q32021 annual_trade_2018 tourism_2018 gdp_per_capita_Q32021 trend_growth expenditure_on_health_2018
+
+
+
+estimates store regression_1
+outreg2 regression_1 using regression_1.xls, replace e(all)
+
+//IV
+ivregress 2sls growth_rate_Q12020 (stringency_index_Q12020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q12020 fatality_Q12020 annual_trade_2018 tourism_2018 gdp_per_capita_Q12020 trend_growth 
+
+ivregress 2sls growth_rate_Q22020 (stringency_index_Q22020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q22020 fatality_Q22020 annual_trade_2018 tourism_2018 gdp_per_capita_Q22020 trend_growth 
+
+ivregress 2sls growth_rate_Q32020 (stringency_index_Q32020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q32020 fatality_Q32020 annual_trade_2018 tourism_2018 gdp_per_capita_Q32020 trend_growth 
+
+ivregress 2sls growth_rate_Q42020 (stringency_index_Q42020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q42020 fatality_Q42020 annual_trade_2018 tourism_2018 gdp_per_capita_Q42020 trend_growth 
+
+
+
+ivregress 2sls growth_rate_Q12021 (stringency_index_Q12021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q12021 fatality_Q12021 annual_trade_2018 tourism_2018 gdp_per_capita_Q12021 trend_growth total_vaccinations_Q12021 people_fully_vaccinated_Q12021 
+
+
+ivregress 2sls growth_rate_Q22021 (stringency_index_Q22021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q22021 fatality_Q22021 annual_trade_2018 tourism_2018 gdp_per_capita_Q22021 trend_growth total_vaccinations_Q22021 people_fully_vaccinated_Q22021 
+
+ivregress 2sls growth_rate_Q32021 (stringency_index_Q32021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q32021 fatality_Q32021 annual_trade_2018 tourism_2018 gdp_per_capita_Q32021 trend_growth 
+
+
+estimates store regression_1
+outreg2 regression_1 using regression_1.xls, replace e(all)
+
+
+
+
+ivregress 2sls growth_rate_Q12020 (fatality_Q12020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q12020 stringency_index_Q12020 annual_trade_2018 tourism_2018 gdp_per_capita_Q12020 trend_growth 
+
+ivregress 2sls growth_rate_Q22020 (fatality_Q22020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q22020 stringency_index_Q22020 annual_trade_2018 tourism_2018 gdp_per_capita_Q22020 trend_growth 
+
+ivregress 2sls growth_rate_Q32020 (fatality_Q32020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q32020 stringency_index_Q32020 annual_trade_2018 tourism_2018 gdp_per_capita_Q32020 trend_growth 
+
+ivregress 2sls growth_rate_Q42020 (fatality_Q42020 = speed life_expectancy_2018 lnpopulation_2020) 
+ivregress 2sls growth_rate_Q42020 stringency_index_Q42020 annual_trade_2018 tourism_2018 gdp_per_capita_Q42020 trend_growth 
+
+
+
+ivregress 2sls growth_rate_Q12021 (fatality_Q12021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q12021 stringency_index_Q12021 annual_trade_2018 tourism_2018 gdp_per_capita_Q12021 trend_growth total_vaccinations_Q12021 people_fully_vaccinated_Q12021 
+
+ivregress 2sls growth_rate_Q22021 (fatality_Q22021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q22021 stringency_index_Q22021 annual_trade_2018 tourism_2018 gdp_per_capita_Q22021 trend_growth total_vaccinations_Q12021 people_fully_vaccinated_Q12021 
+
+ivregress 2sls growth_rate_Q32021 (fatality_Q32021 = speed life_expectancy_2018 lnpopulation_2021) 
+ivregress 2sls growth_rate_Q32021 stringency_index_Q32021 annual_trade_2018 tourism_2018 gdp_per_capita_Q32021 trend_growth 
+
+
+
+estimates store regression_1
+outreg2 regression_1 using regression_1.xls, replace e(all)
